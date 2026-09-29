@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+  # Break-glass publish trigger: re-attempts publishing the current version
+  # (e.g. after a failed release run) without needing a new commit.
+  workflow_dispatch:
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: write
+  pull-requests: write
+  # Publishing authenticates via OIDC trusted publishing — no npm token.
+  id-token: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    environment: npm-publish
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # NOTE: re-running an old failed run replays the workflow file from
+      # that run's original commit — fixes to this file don't apply to
+      # re-runs. To retry a publish, trigger a fresh workflow_dispatch
+      # instead of pressing "Re-run" on a historical run.
+      - name: Version or publish
+        uses: changesets/action@v1
+        with:
+          publish: "${{ (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'chore: version package')) && 'pnpm release' || '' }}"
+          title: 'chore: version package'
+          commit: 'chore: version package'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

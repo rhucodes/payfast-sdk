@@ -1,0 +1,6 @@
+allowBuilds:
+  esbuild: true
+packages:
+  - '.'
+minimumReleaseAge: 20160
+saveExact: true

@@ -1,0 +1,79 @@
+{
+	"name": "@rhucodes/payfast-sdk",
+	"version": "1.0.3",
+	"description": "PayFast SDK for Node.js - Accept payments via South Africa's leading payment gateway",
+	"type": "module",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		}
+	},
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE"
+	],
+	"scripts": {
+		"build": "pnpm clean && tsc",
+		"build:watch": "tsc --watch",
+		"typecheck": "tsc --noEmit",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"test:coverage": "vitest run --coverage",
+		"lint": "biome lint src",
+		"lint:fix": "biome lint --write src",
+		"format": "biome format --write src",
+		"check": "biome check src",
+		"check:fix": "biome check --write src",
+		"verify": "pnpm check && pnpm typecheck && pnpm test && pnpm build",
+		"changeset": "changeset",
+		"prepublishOnly": "pnpm verify",
+		"release": "pnpm build && npm publish && changeset tag",
+		"clean": "rm -rf dist",
+		"prepare": "husky"
+	},
+	"keywords": [
+		"payfast",
+		"payment",
+		"gateway",
+		"south-africa",
+		"payments",
+		"credit-card",
+		"eft",
+		"instant-eft",
+		"recurring-payments",
+		"subscriptions",
+		"sdk",
+		"api"
+	],
+	"author": "Dominic Marule <design@dominicmarule.co.za>",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/rhucodes/payfast-sdk.git"
+	},
+	"bugs": {
+		"url": "https://github.com/rhucodes/payfast-sdk/issues"
+	},
+	"homepage": "https://github.com/rhucodes/payfast-sdk#readme",
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"packageManager": "pnpm@11.6.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org",
+		"access": "public"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.4.11",
+		"@changesets/cli": "2.31.1",
+		"@types/node": "25.0.10",
+		"@vitest/coverage-v8": "4.0.18",
+		"husky": "9.1.7",
+		"typescript": "5.9.3",
+		"vitest": "4.0.18"
+	}
+}

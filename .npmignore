@@ -1,0 +1,7 @@
+.claude
+src/
+tests/
+.env*
+*.test.js
+.husky/
+docs/
