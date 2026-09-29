@@ -12,7 +12,7 @@ export function generateSignature(data: Record<string, string | number | undefin
 
 	let getString = pfOutput.slice(0, -1)
 
-	if (passphrase !== null && passphrase !== undefined) {
+	if (passphrase) {
 		getString += `&passphrase=${encodeURIComponent(passphrase.trim()).replace(/%20/g, '+')}`
 	}
 
