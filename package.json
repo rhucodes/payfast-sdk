@@ -1,6 +1,6 @@
 {
 	"name": "@rhucodes/payfast-sdk",
-	"version": "1.0.3",
+	"version": "1.1.0",
 	"description": "PayFast SDK for Node.js - Accept payments via South Africa's leading payment gateway",
 	"type": "module",
 	"main": "dist/index.js",
