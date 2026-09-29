@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest'
-import { Payments } from '../../src/resources/payments'
+import { describe, expect, it } from 'vitest'
 import { ValidationError } from '../../src/core/errors'
+import { Payments } from '../../src/resources/payments'
 
 describe('Payments Resource', () => {
 	const config = {

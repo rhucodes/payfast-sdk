@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'vitest'
-import { PayFast } from '../../src/payfast'
-import { ValidationError } from '../../src/core/errors'
+import { describe, expect, it } from 'vitest'
 import { SANDBOX_CREDENTIALS } from '../../src/core/constants'
+import { ValidationError } from '../../src/core/errors'
+import { PayFast } from '../../src/payfast'
 
 describe('PayFast Client', () => {
 	const validConfig = {

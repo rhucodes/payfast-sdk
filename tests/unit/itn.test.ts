@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { ITN } from '../../src/resources/itn'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { SignatureMismatchError } from '../../src/core/errors'
+import { ITN } from '../../src/resources/itn'
 import { generateSignature } from '../../src/utils/signature'
 
 describe('ITN Resource', () => {
@@ -259,9 +259,7 @@ describe('ITN Resource', () => {
 
 			const payload = createValidPayload()
 
-			await expect(itn.verifyWithServer(payload)).rejects.toThrow(
-				'Failed to verify ITN',
-			)
+			await expect(itn.verifyWithServer(payload)).rejects.toThrow('Failed to verify ITN')
 		})
 
 		it('should use correct validation URL for sandbox', async () => {
@@ -272,10 +270,7 @@ describe('ITN Resource', () => {
 			const payload = createValidPayload()
 			await itn.verifyWithServer(payload)
 
-			expect(fetch).toHaveBeenCalledWith(
-				'https://sandbox.payfast.co.za/eng/query/validate',
-				expect.any(Object),
-			)
+			expect(fetch).toHaveBeenCalledWith('https://sandbox.payfast.co.za/eng/query/validate', expect.any(Object))
 		})
 
 		it('should use correct validation URL for production', async () => {
@@ -288,10 +283,7 @@ describe('ITN Resource', () => {
 			const payload = createValidPayload()
 			await prodItn.verifyWithServer(payload)
 
-			expect(fetch).toHaveBeenCalledWith(
-				'https://www.payfast.co.za/eng/query/validate',
-				expect.any(Object),
-			)
+			expect(fetch).toHaveBeenCalledWith('https://www.payfast.co.za/eng/query/validate', expect.any(Object))
 		})
 
 		it('should exclude signature from validation request', async () => {

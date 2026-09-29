@@ -35,10 +35,7 @@ export class HttpClient {
 		return url
 	}
 
-	async get<T>(
-		endpoint: string,
-		queryParams?: Record<string, string>,
-	): Promise<T> {
+	async get<T>(endpoint: string, queryParams?: Record<string, string>): Promise<T> {
 		const url = this.buildUrl(endpoint, queryParams)
 		const headers = generateAPIHeaders(this.merchantId, this.passphrase)
 
@@ -51,27 +48,15 @@ export class HttpClient {
 		})
 	}
 
-	async post<T>(
-		endpoint: string,
-		data?: Record<string, unknown>,
-		queryParams?: Record<string, string>,
-	): Promise<T> {
+	async post<T>(endpoint: string, data?: Record<string, unknown>, queryParams?: Record<string, string>): Promise<T> {
 		return this.send<T>('POST', endpoint, data, queryParams)
 	}
 
-	async put<T>(
-		endpoint: string,
-		data?: Record<string, unknown>,
-		queryParams?: Record<string, string>,
-	): Promise<T> {
+	async put<T>(endpoint: string, data?: Record<string, unknown>, queryParams?: Record<string, string>): Promise<T> {
 		return this.send<T>('PUT', endpoint, data, queryParams)
 	}
 
-	async patch<T>(
-		endpoint: string,
-		data?: Record<string, unknown>,
-		queryParams?: Record<string, string>,
-	): Promise<T> {
+	async patch<T>(endpoint: string, data?: Record<string, unknown>, queryParams?: Record<string, string>): Promise<T> {
 		return this.send<T>('PATCH', endpoint, data, queryParams)
 	}
 
@@ -79,7 +64,7 @@ export class HttpClient {
 		method: 'POST' | 'PUT' | 'PATCH',
 		endpoint: string,
 		data?: Record<string, unknown>,
-		queryParams?: Record<string, string>,
+		queryParams?: Record<string, string>
 	): Promise<T> {
 		const url = this.buildUrl(endpoint, queryParams)
 
@@ -92,11 +77,7 @@ export class HttpClient {
 			}
 		}
 
-		const headers = generateAPIHeaders(
-			this.merchantId,
-			this.passphrase,
-			signatureData,
-		)
+		const headers = generateAPIHeaders(this.merchantId, this.passphrase, signatureData)
 
 		return this.request<T>(url, {
 			method,
@@ -135,20 +116,11 @@ export class HttpClient {
 					data: { response: string; message: string }
 				}
 
-				if (
-					response.status === 401 ||
-					errorData.data?.response?.includes('authorization')
-				) {
-					throw new AuthenticationError(
-						errorData.data?.response ?? 'Merchant authorization failed',
-					)
+				if (response.status === 401 || errorData.data?.response?.includes('authorization')) {
+					throw new AuthenticationError(errorData.data?.response ?? 'Merchant authorization failed')
 				}
 
-				throw new APIError(
-					errorData.data?.response ?? 'API request failed',
-					errorData.code ?? response.status,
-					errorData.data,
-				)
+				throw new APIError(errorData.data?.response ?? 'API request failed', errorData.code ?? response.status, errorData.data)
 			}
 
 			return (json as APIResponse<T>).data

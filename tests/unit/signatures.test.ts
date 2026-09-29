@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
-import { generateSignature, verifySignature, generateAPIHeaders } from '../../src/utils/signature'
+import { describe, expect, it } from 'vitest'
+import { generateAPIHeaders, generateSignature, verifySignature } from '../../src/utils/signature'
 
 describe('Signature Utils', () => {
 	describe('generateSignature', () => {

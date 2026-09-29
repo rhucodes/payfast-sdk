@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest'
-import { validateConfig, validatePaymentData, validateSubscriptionData, isValidPayFastIP } from '../../src/utils/validation'
+import { describe, expect, it } from 'vitest'
 import { ValidationError } from '../../src/core/errors'
+import { isValidPayFastIP, validateConfig, validatePaymentData, validateSubscriptionData } from '../../src/utils/validation'
 
 describe('Validation Utils', () => {
 	describe('validateConfig', () => {

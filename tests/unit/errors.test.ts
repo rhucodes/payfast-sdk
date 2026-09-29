@@ -1,13 +1,13 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import {
-	PayFastError,
-	ConfigurationError,
-	AuthenticationError,
-	ValidationError,
 	APIError,
-	NetworkError,
+	AuthenticationError,
+	ConfigurationError,
 	ITNValidationError,
+	NetworkError,
+	PayFastError,
 	SignatureMismatchError,
+	ValidationError,
 } from '../../src/core/errors'
 
 describe('Error Classes', () => {

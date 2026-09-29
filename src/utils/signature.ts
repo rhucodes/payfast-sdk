@@ -1,18 +1,11 @@
 import { createHash } from 'node:crypto'
 
-export function generateSignature(
-	data: Record<string, string | number | undefined>,
-	passphrase?: string,
-) {
+export function generateSignature(data: Record<string, string | number | undefined>, passphrase?: string) {
 	const { signature: _, ...dataWithoutSignature } = data // always strip signature
 
 	let pfOutput = ''
 	for (const key in dataWithoutSignature) {
-		if (
-			Object.hasOwn(dataWithoutSignature, key) &&
-			dataWithoutSignature[key] !== undefined &&
-			dataWithoutSignature[key] !== ''
-		) {
+		if (Object.hasOwn(dataWithoutSignature, key) && dataWithoutSignature[key] !== undefined && dataWithoutSignature[key] !== '') {
 			pfOutput += `${key}=${encodeURIComponent(String(dataWithoutSignature[key]).trim()).replace(/%20/g, '+')}&`
 		}
 	}
@@ -29,10 +22,7 @@ export function generateSignature(
 /**
  * Verify a signature from PayFast ITN
  */
-export function verifySignature(
-	payload: Record<string, string | number | undefined>,
-	passphrase?: string,
-): boolean {
+export function verifySignature(payload: Record<string, string | number | undefined>, passphrase?: string): boolean {
 	const receivedSignature = payload.signature
 	if (!receivedSignature || typeof receivedSignature !== 'string') {
 		return false
@@ -48,7 +38,7 @@ export function verifySignature(
 export function generateAPIHeaders(
 	merchantId: string,
 	passphrase: string | undefined,
-	data: Record<string, string | number | undefined> = {},
+	data: Record<string, string | number | undefined> = {}
 ): Record<string, string> {
 	const timestamp = new Date().toISOString().split('.')[0] ?? ''
 
@@ -73,9 +63,7 @@ export function generateAPIHeaders(
 	return headers
 }
 
-function generateSignatureForAPI(
-	data: Record<string, string | number | undefined>,
-): string {
+function generateSignatureForAPI(data: Record<string, string | number | undefined>): string {
 	const filteredData: Record<string, string> = {}
 
 	for (const [key, value] of Object.entries(data)) {
